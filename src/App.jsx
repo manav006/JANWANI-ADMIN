@@ -1,6 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import Image from './assets/Logo.jpg'
+import Image from './assets/Logo.jpg';
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+
+
+// Fix for default markers in react-leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
+
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -8,6 +21,20 @@ const AdminDashboard = () => {
     issues: '',
     resolved: ''
   });
+
+  const getIssueIcon = (priority) => {
+    let color = '#ff9500'; // Default orange
+    if (priority === 'High') color = 'red';
+    if (priority === 'Medium') color = 'blue';
+    if (priority === 'Low') color = 'green';
+
+    return new L.Icon({
+      iconUrl: `https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|${color.replace('#', '')}`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
+  };
 
   // Chart data
   const issuesData = [
@@ -59,6 +86,45 @@ const AdminDashboard = () => {
     { id: '#TK093', user: 'mayur singh', description: 'Water overflowing from sewage', resolution: 'Overflow stopped and area sanitized', resolvedBy: 'Water & Sewage Department', date: 'Aug 27, 2025' },
     { id: '#TK092', user: 'satyam singh', description: 'Broken bench of park', resolution: 'Bench repaired and made safe', resolvedBy: 'Parks & Recreation Department', date: 'Aug 27, 2025' },
     { id: '#TK091', user: 'danish sudani', description: 'Street light not working', resolution: 'Street light repaired and functional', resolvedBy: 'Electrical Department', date: 'Aug 26, 2025' }
+  ];
+
+  const issueLocations = [
+    {
+      id: '#TK001',
+      title: 'Street Light Not Working',
+      description: 'Street light is broken in Sector 21.',
+      priority: 'High',
+      status: 'Open',
+      lat: 28.6139,
+      lng: 77.2090,
+    },
+    {
+      id: '#TK002',
+      title: 'Garbage Overflow',
+      description: 'Dustbin is overflowing in Model Town.',
+      priority: 'Medium',
+      status: 'In Progress',
+      lat: 28.7041,
+      lng: 77.1025,
+    },
+    {
+      id: '#TK003',
+      title: 'Water Leakage',
+      description: 'Water pipe leaking near Civil Lines.',
+      priority: 'Low',
+      status: 'Resolved',
+      lat: 28.5355,
+      lng: 77.3910,
+    },
+    {
+      id: '#TK004',
+      title: 'Potholes on Road',
+      description: 'Multiple potholes reported on Ring Road.',
+      priority: 'High',
+      status: 'Open',
+      lat: 28.4595,
+      lng: 77.0266,
+    }
   ];
 
   const showSection = (section) => {
@@ -131,7 +197,7 @@ const AdminDashboard = () => {
       {/* Sidebar */}
       <div className={`fixed left-0 top-0 w-64 h-full bg-white shadow-xl z-50 flex flex-col transform transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0`}>
-        {/* Logo Section */}
+        {/* Logo Section - Fixed */}
         <div className="p-6 bg-gradient-to-br from-orange-500 to-orange-400 text-white text-center">
           <div className="w-16 h-16 bg-white bg-opacity-20 rounded-xl mx-auto mb-4 flex items-center justify-center font-bold text-lg backdrop-blur-sm">
             <div className="flex justify-center mb-6">
@@ -362,6 +428,48 @@ const AdminDashboard = () => {
                       <Bar dataKey="newRegistrations" fill="#2196f3" name="New Registrations" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
+                </div>
+              </div>
+
+              {/* Nearby Issues Map - Moved to Dashboard section */}
+              <div className="bg-white rounded-2xl shadow-sm p-6">
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Nearby Issues</h3>
+                  <p className="text-gray-600 text-sm">Explore reported issues on the map</p>
+                </div>
+                <div className="h-96 rounded-xl overflow-hidden">
+                  <MapContainer
+                    center={[28.6139, 77.2090]} // Default Delhi center
+                    zoom={11}
+                    style={{ height: '100%', width: '100%' }}
+                    scrollWheelZoom={true}
+                  >
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+
+                    {issueLocations.map((issue, index) => (
+                      <Marker
+                        key={index}
+                        position={[issue.lat, issue.lng]}
+                        icon={getIssueIcon(issue.priority)}
+                      >
+                        <Popup>
+                          <div className="p-2">
+                            <h4 className="font-semibold text-orange-500">{issue.title}</h4>
+                            <p className="text-gray-700 text-sm">{issue.description}</p>
+                            <p className="text-sm mt-1">
+                              <span className="font-semibold">Priority:</span> {issue.priority}
+                            </p>
+                            <p className="text-sm">
+                              <span className="font-semibold">Status:</span> {issue.status}
+                            </p>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
                 </div>
               </div>
             </div>
