@@ -40,25 +40,25 @@ const AdminDashboard = () => {
 
   // Issues data
   const openIssues = [
-    { id: '#TK001', user: 'John Smith', description: 'Login issues with mobile app', priority: 'High', status: 'Open', date: 'Aug 30, 2025' },
-    { id: '#TK002', user: 'Maria Garcia', description: 'Event registration not working', priority: 'Medium', status: 'In Progress', date: 'Aug 29, 2025' },
-    { id: '#TK003', user: 'David Wilson', description: 'Profile picture upload failing', priority: 'Low', status: 'Open', date: 'Aug 29, 2025' },
-    { id: '#TK004', user: 'Sarah Chen', description: 'Notification settings not saving', priority: 'Medium', status: 'In Progress', date: 'Aug 28, 2025' },
-    { id: '#TK005', user: 'Michael Brown', description: 'Unable to access ticket history', priority: 'High', status: 'Open', date: 'Aug 28, 2025' },
-    { id: '#TK006', user: 'Emily Johnson', description: 'Payment processing error', priority: 'High', status: 'Open', date: 'Aug 27, 2025' },
-    { id: '#TK007', user: 'Robert Taylor', description: 'Dashboard loading slowly', priority: 'Low', status: 'In Progress', date: 'Aug 27, 2025' },
-    { id: '#TK008', user: 'Amanda White', description: 'Email notifications not sending', priority: 'Medium', status: 'Open', date: 'Aug 26, 2025' }
+    { id: '#TK001', user: 'jaya patel', description: 'Street Light not working', priority: 'High', status: 'Open', date: 'Aug 30, 2025' },
+    { id: '#TK002', user: 'sanya sharma', description: 'Garbage not cleaned', priority: 'Medium', status: 'In Progress', date: 'Aug 29, 2025' },
+    { id: '#TK003', user: 'David patel', description: 'Dustbin overflowig', priority: 'Low', status: 'Open', date: 'Aug 29, 2025' },
+    { id: '#TK004', user: 'nishant mishra', description: 'Potholes', priority: 'Medium', status: 'In Progress', date: 'Aug 28, 2025' },
+    { id: '#TK005', user: 'Michael Brown', description: 'Water leakage', priority: 'High', status: 'Open', date: 'Aug 28, 2025' },
+    { id: '#TK006', user: 'dolly koul', description: 'Potholes on my road', priority: 'High', status: 'Open', date: 'Aug 27, 2025' },
+    { id: '#TK007', user: 'sonia khajuria', description: 'Sewage Blocked in Street', priority: 'Low', status: 'In Progress', date: 'Aug 27, 2025' },
+    { id: '#TK008', user: 'ruhi agarwal', description: 'Too many poholes on whole road', priority: 'Medium', status: 'Open', date: 'Aug 26, 2025' }
   ];
 
   const resolvedIssues = [
-    { id: '#TK098', user: 'Lisa Wang', description: 'Password reset not working', resolution: 'Fixed email service configuration', resolvedBy: 'Admin Team', date: 'Aug 30, 2025' },
-    { id: '#TK097', user: 'James Miller', description: 'App crashes on startup', resolution: 'Updated app to latest version', resolvedBy: 'Tech Support', date: 'Aug 29, 2025' },
-    { id: '#TK096', user: 'Emma Davis', description: 'Cannot cancel event registration', resolution: 'Added cancel button to registration', resolvedBy: 'Development', date: 'Aug 29, 2025' },
-    { id: '#TK095', user: 'Alex Rodriguez', description: 'Duplicate notifications received', resolution: 'Fixed notification service bug', resolvedBy: 'Admin Team', date: 'Aug 28, 2025' },
-    { id: '#TK094', user: 'Jennifer Lee', description: 'Profile data not syncing', resolution: 'Resolved database sync issue', resolvedBy: 'Tech Support', date: 'Aug 28, 2025' },
-    { id: '#TK093', user: 'Mark Thompson', description: 'File upload timeout error', resolution: 'Increased server timeout limit', resolvedBy: 'Development', date: 'Aug 27, 2025' },
-    { id: '#TK092', user: 'Sophie Clark', description: 'Search function not working', resolution: 'Fixed database indexing issue', resolvedBy: 'Admin Team', date: 'Aug 27, 2025' },
-    { id: '#TK091', user: 'Daniel Martinez', description: 'Charts not loading properly', resolution: 'Updated Chart.js library', resolvedBy: 'Development', date: 'Aug 26, 2025' }
+    { id: '#TK098', user: 'sukhwinder', description: 'Garbage not collected', resolution: 'Garbage collected by municipal workers', resolvedBy: 'Sanitation Department', date: 'Aug 30, 2025' },
+    { id: '#TK097', user: 'arti singh', description: 'Potholes in front of my house', resolution: 'Potholes filled and road repaired', resolvedBy: 'Road Maintenance Department', date: 'Aug 29, 2025' },
+    { id: '#TK096', user: 'paras koko', description: 'Dustbin overflow', resolution: 'Dustbin emptied and cleaned', resolvedBy: 'Sanitation Department', date: 'Aug 29, 2025' },
+    { id: '#TK095', user: 'shiva mishra', description: 'Street not cleaned', resolution: 'Street cleaned by municipal staff', resolvedBy: 'Sanitation Department', date: 'Aug 28, 2025' },
+    { id: '#TK094', user: 'rajesh kumar', description: 'Sewage blocked', resolution: 'Sewage blockage cleared', resolvedBy: 'Water & Sewage Department', date: 'Aug 28, 2025' },
+    { id: '#TK093', user: 'mayur singh', description: 'Water overflowing from sewage', resolution: 'Overflow stopped and area sanitized', resolvedBy: 'Water & Sewage Department', date: 'Aug 27, 2025' },
+    { id: '#TK092', user: 'satyam singh', description: 'Broken bench of park', resolution: 'Bench repaired and made safe', resolvedBy: 'Parks & Recreation Department', date: 'Aug 27, 2025' },
+    { id: '#TK091', user: 'danish sudani', description: 'Street light not working', resolution: 'Street light repaired and functional', resolvedBy: 'Electrical Department', date: 'Aug 26, 2025' }
   ];
 
   const showSection = (section) => {
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
           <div className="w-16 h-16 bg-white bg-opacity-20 rounded-xl mx-auto mb-4 flex items-center justify-center font-bold text-lg backdrop-blur-sm">
             <div className="flex justify-center mb-6">
               <div
-                className="w-12 h-12 bg-cover bg-center rounded-lg"
+                className="w-12 h-10 bg-cover bg-center rounded-lg"
                 style={{ backgroundImage: `url(${Image})` }}
               ></div>
             </div>
