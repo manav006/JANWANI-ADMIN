@@ -22,10 +22,10 @@ const AdminDashboard = () => {
   ];
 
   const categoriesData = [
-    { name: 'Login Issues', value: 35, color: '#ff9500' },
-    { name: 'App Bugs', value: 25, color: '#2196f3' },
-    { name: 'Feature Requests', value: 20, color: '#4caf50' },
-    { name: 'Account Problems', value: 20, color: '#f44336' }
+    { name: 'Pothole issues', value: 35, color: '#ff9500' },
+    { name: 'Electrical issues', value: 25, color: '#2196f3' },
+    { name: 'Sanitation issues', value: 20, color: '#4caf50' },
+    { name: 'Water issues', value: 20, color: '#f44336' }
   ];
 
   const activityData = [
